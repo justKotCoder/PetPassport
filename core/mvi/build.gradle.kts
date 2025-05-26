@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.auth"
+    namespace = "com.example.mvi"
     compileSdk = 35
 
     defaultConfig {
@@ -33,7 +33,6 @@ android {
 }
 
 dependencies {
-    implementation("com.airbnb.android:lottie-compose:6.4.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

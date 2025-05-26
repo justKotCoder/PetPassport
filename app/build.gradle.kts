@@ -42,11 +42,15 @@ android {
 }
 
 dependencies {
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
+
     // Навигация Jetpack Compose
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // Основные зависимости
     implementation(project(":core"))
+    implementation(project(":core:mvi"))
+
     implementation(project(":feature:auth"))
     implementation(project(":feature:services"))
     implementation(project(":feature:petpassport"))

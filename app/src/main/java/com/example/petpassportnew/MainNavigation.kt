@@ -8,6 +8,9 @@ import androidx.navigation.compose.composable
 import com.example.chat.ChatScreen
 import com.example.petpassport.PetpassportScreen
 import com.example.petpassportnew.navigation.Screen
+import com.example.petpassportnew.presentation.splash.SplashRoute
+import com.example.petpassportnew.presentation.splash.SplashScreen
+import com.example.petpassportnew.presentation.splash.splashScreen
 import com.example.profile.ProfileScreen
 import com.example.services.ServicesScreen
 
@@ -18,9 +21,13 @@ fun MainNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Services.route,
+        startDestination = SplashRoute ,
         modifier = modifier
     ) {
+        composable(SplashRoute){
+            SplashScreen( onFinished = {})
+        }
+
         composable(Screen.Services.route) {
             ServicesScreen(navController = navController)
         }
