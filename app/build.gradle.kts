@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-}
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)}
 
 android {
     namespace = "com.example.petpassportnew"
@@ -42,15 +43,17 @@ android {
 }
 
 dependencies {
+    // Lottie
     implementation("com.airbnb.android:lottie-compose:6.4.0")
 
-    // Навигация Jetpack Compose
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    // Compose Navigation
+    implementation(libs.androidx.navigation.compose)
 
-    // Основные зависимости
+    // Core
     implementation(project(":core"))
     implementation(project(":core:mvi"))
 
+    // Features
     implementation(project(":feature:auth"))
     implementation(project(":feature:services"))
     implementation(project(":feature:petpassport"))
@@ -58,27 +61,26 @@ dependencies {
     implementation(project(":feature:profile"))
     implementation(project(":feature:appointments"))
 
-    // Compose BOM
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
-
-    // Compose UI
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
 
-    // Activity & lifecycle
+    // Activity & Lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0") // Можно тоже вынести в libs
 
-    // Иконки
-    implementation("androidx.compose.material:material-icons-extended")
+    // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
 
-    // Тесты
-
+    // Debug tools
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

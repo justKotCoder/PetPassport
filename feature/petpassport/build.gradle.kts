@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
-    kotlin("kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -53,10 +53,9 @@ dependencies {
 
     // DI — Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-
-    // Hilt + Navigation Compose (если используешь hiltViewModel + navGraph)
     implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
+
 
     // Unit & UI Tests
     testImplementation(libs.junit)

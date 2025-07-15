@@ -53,10 +53,9 @@ dependencies {
 
     // DI — Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-
-    // Hilt + Navigation Compose (если используешь hiltViewModel + navGraph)
+    kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+
 
     // Unit & UI Tests
     testImplementation(libs.junit)

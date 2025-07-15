@@ -3,11 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
-    kotlin("kapt")
+    alias(libs.plugins.ksp)
+
 }
 
 android {
-    namespace = "com.example.petpassport.feature.appointments" // уникальный для фичи
+    namespace = "com.example.petpassport.feature.appointments"
     compileSdk = 35
 
     defaultConfig {
@@ -41,6 +42,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":core:mvi"))
+
     // Compose + Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
@@ -53,12 +57,15 @@ dependencies {
 
     // DI — Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-
-    // Hilt + Navigation Compose (если используешь hiltViewModel + navGraph)
     implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
 
-
+    // Unit & UI Tests
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
