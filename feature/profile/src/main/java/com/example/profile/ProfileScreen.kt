@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.core.nav_profile.InnerScreen
 import com.example.core.ui.theme.BlueFont
 import com.example.core.ui.theme.DarkGrey
 import com.example.core.ui.theme.Grey
@@ -56,7 +58,9 @@ fun ProfileScreen(
             name = state.name,
             email = state.email,
             onLogoutClick = { /* TODO */ },
-            onItemClick = { /* TODO */ }
+            onItemClick = { screen ->
+                navController?.navigate(screen.route)
+            }
         )
     }
 }
@@ -66,7 +70,7 @@ fun ProfileContent(
     name: String,
     email: String,
     onLogoutClick: () -> Unit,
-    onItemClick: (String) -> Unit
+    onItemClick: (InnerScreen) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -78,9 +82,9 @@ fun ProfileContent(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            ProfileMenuItem(text = "Настройки", onClick = { onItemClick("settings") })
-            ProfileMenuItem(text = "Избранное", onClick = { onItemClick("favorites") })
-            ProfileMenuItem(text = "Помощь", onClick = { onItemClick("help") })
+            ProfileMenuItem(text = "Настройки", onClick = { onItemClick(InnerScreen.Settings) })
+            ProfileMenuItem(text = "Избранное", onClick = {  })
+            ProfileMenuItem(text = "Помощь", onClick = {  })
 
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -179,7 +183,7 @@ fun ProfileContentPreview() {
     MaterialTheme {
         ProfileContent(
             name = "Жан",
-            email = "zhang@future.com",
+            email = "zhan@future.com",
             onLogoutClick = {},
             onItemClick = {}
         )

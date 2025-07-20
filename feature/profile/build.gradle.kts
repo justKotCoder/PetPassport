@@ -43,6 +43,8 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":core:mvi"))
+    implementation(project(":feature:settings"))
+
 
     // Compose + Android
     implementation(libs.androidx.core.ktx)

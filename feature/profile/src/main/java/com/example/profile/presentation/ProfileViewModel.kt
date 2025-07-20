@@ -14,7 +14,7 @@ class ProfileViewModel @Inject constructor(
 
     override fun initialState() = ProfileUiState()
 
-    override fun handleEvent(event: ProfileUiEvent) {
+    override fun onEvent(event: ProfileUiEvent) {
         when (event) {
             ProfileUiEvent.OnAppear -> loadProfile()
         }
@@ -35,7 +35,7 @@ class ProfileViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 setState { copy(isLoading = false) }
-                setEffect { ProfileUiEffect.ShowToast("Ошибка загрузки профиля") }
+                sendEffect(ProfileUiEffect.ShowToast("Ошибка загрузки профиля"))
             }
         }
     }

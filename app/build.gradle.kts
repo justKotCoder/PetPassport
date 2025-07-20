@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
-    alias(libs.plugins.ksp)}
+    alias(libs.plugins.ksp)
+}
 
 android {
     namespace = "com.example.petpassportnew"
@@ -60,6 +61,7 @@ dependencies {
     implementation(project(":feature:chat"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:appointments"))
+    implementation(project(":feature:settings"))
 
     // Compose
     implementation(platform(libs.androidx.compose.bom))

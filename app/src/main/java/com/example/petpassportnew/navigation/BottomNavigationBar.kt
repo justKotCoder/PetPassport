@@ -1,14 +1,6 @@
 package com.example.petpassportnew.navigation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,10 +25,9 @@ fun BottomNavigationBar(navController: NavController) {
         Screen.Profile
     )
     val navBackStackEntry = navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry.value?.destination
 
-    // Общая высота навбара (56dp) + выступ круга (12dp)
     Box(modifier = Modifier.height(68.dp)) {
-        // Основной контейнер навбара
         Surface(
             color = Color(0xFF033957),
             modifier = Modifier
@@ -45,49 +36,59 @@ fun BottomNavigationBar(navController: NavController) {
         ) {
             Row(
                 modifier = Modifier.fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceEvenly, // Равные промежутки
+                horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 items.forEachIndexed { index, item ->
-                    if (index != 2) { // Пропускаем позицию для круглой кнопки
-                        val selected = navBackStackEntry.value?.destination?.route == item.route
+                    if (index != 2) {
+                        // Проверяем активный маршрут с учетом вложенных графов
+                        val isSelected = when {
+                            item.route == Screen.Profile.route ->
+                                currentDestination?.route?.startsWith(item.route) == true
+                            else ->
+                                currentDestination?.route == item.route
+                        }
 
                         IconButton(
-                            onClick = { navController.navigate(item.route) },
+                            onClick = {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.startDestinationId)
+                                    launchSingleTop = true
+                                }
+                            },
                             modifier = Modifier.size(48.dp)
                         ) {
                             Icon(
                                 painter = painterResource(id = item.icon),
                                 contentDescription = item.route,
                                 modifier = Modifier.size(24.dp),
-                                tint = if (selected) CustomBlue else Color.White.copy(alpha = 0.7f)
+                                tint = if (isSelected) CustomBlue else Color.White.copy(alpha = 0.7f)
                             )
                         }
                     } else {
-                        // Пустой Box для сохранения места
                         Spacer(modifier = Modifier.size(48.dp))
                     }
                 }
             }
         }
 
-        // Плавающая круглая кнопка (выступает вверх)
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.TopCenter)
-        ) {
+        Box(modifier = Modifier.fillMaxWidth().align(Alignment.TopCenter)) {
             Surface(
                 shape = CircleShape,
                 color = CustomBlue,
                 modifier = Modifier
                     .size(56.dp)
                     .align(Alignment.BottomCenter)
-                    .offset(y = (-12).dp), // Выступ вверх на 12dp
-                tonalElevation  = 8.dp
+                    .offset(y = (-12).dp),
+                tonalElevation = 8.dp
             ) {
                 IconButton(
-                    onClick = { navController.navigate(Screen.PetPassport.route) },
+                    onClick = {
+                        navController.navigate(Screen.PetPassport.route) {
+                            popUpTo(navController.graph.startDestinationId)
+                            launchSingleTop = true
+                        }
+                    },
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Icon(
