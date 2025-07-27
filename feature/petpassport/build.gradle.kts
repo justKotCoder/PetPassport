@@ -54,6 +54,7 @@ dependencies {
     // DI — Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation(project(":core"))
     ksp(libs.hilt.compiler)
 
 
