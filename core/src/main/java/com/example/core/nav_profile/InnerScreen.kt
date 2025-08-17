@@ -5,5 +5,6 @@ sealed class InnerScreen(val route: String) {
     object Settings : InnerScreen("settings")
     object Favorites : InnerScreen("favorites")
     object Help : InnerScreen("help")
+    object EditPassport:InnerScreen("editPassport")
 }
 

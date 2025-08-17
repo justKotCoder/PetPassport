@@ -1,6 +1,7 @@
 package com.example.petpassportnew.presentation.splash
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun SplashScreen(
     viewModel: SplashViewModel = viewModel(),
-    onFinished: () -> Unit
+    onFinished:  () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
     val effect = viewModel.effect.collectAsState(initial = null).value

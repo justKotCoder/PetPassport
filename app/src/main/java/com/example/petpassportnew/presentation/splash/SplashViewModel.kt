@@ -24,10 +24,8 @@ class SplashViewModel : BaseViewModel<SplashContract.Event, SplashContract.State
 
     init {
         viewModelScope.launch {
-            // эмуляция "настоящей" загрузки — например:
-            // - Room.getPet()
-            // - Firebase.init()
-            delay(2500)
+            // эмуляция
+            delay(7500)
             setEvent(SplashContract.Event.OnDataLoaded)
         }
     }

@@ -1,12 +1,9 @@
 package com.example.petpassport
 
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -35,7 +31,6 @@ import androidx.navigation.NavController
 import com.example.core.ui.theme.BlueFont
 import com.example.core.ui.theme.LightBlue
 import com.example.petpassport.feature.appointments.R
-
 
 
 @Composable
@@ -120,7 +115,7 @@ fun PetpassportScreen(navController: NavController) {
                 contentAlignment = Alignment.CenterStart
             ) {
                 Button(
-                    onClick = { /* ... */ },
+                    onClick = {  },
                     modifier = Modifier
                         .width(148.dp)
                         .height(43.dp),

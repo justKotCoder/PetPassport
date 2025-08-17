@@ -22,12 +22,9 @@ fun MainNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SplashRoute,
+        startDestination = Screen.Services.route,
         modifier = modifier
     ) {
-        composable(SplashRoute) {
-            SplashScreen(onFinished = { navController.navigate(Screen.Services.route) })
-        }
 
         composable(Screen.Services.route) {
             ServicesScreen(navController = navController)
