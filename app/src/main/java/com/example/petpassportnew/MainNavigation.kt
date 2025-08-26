@@ -6,12 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.chat.ChatScreen
+import com.example.chat.presentation.ChatScreen
 import com.example.petpassport.PetpassportScreen
+import com.example.petpassport.navigation.passportNavGraph
 import com.example.petpassportnew.navigation.Screen
-import com.example.petpassportnew.presentation.splash.SplashRoute
-import com.example.petpassportnew.presentation.splash.SplashScreen
-import com.example.profile.ProfileScreen
 import com.example.profile.profileNavGraph
 import com.example.services.ServicesScreen
 
@@ -48,5 +46,7 @@ fun MainNavigation(
         ) {
             profileNavGraph(navController)
         }
+        passportNavGraph(navController = navController)
+
     }
 }

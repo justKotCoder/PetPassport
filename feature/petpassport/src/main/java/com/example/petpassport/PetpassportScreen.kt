@@ -31,12 +31,15 @@ import androidx.navigation.NavController
 import com.example.core.ui.theme.BlueFont
 import com.example.core.ui.theme.LightBlue
 import com.example.petpassport.feature.appointments.R
-
+import com.example.petpassport.navigation.PassportRoutes
 
 @Composable
-fun PetpassportScreen(navController: NavController) {
+fun PetpassportScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
             .clipToBounds(),
@@ -109,13 +112,15 @@ fun PetpassportScreen(navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 85.dp) // Убрали отрицательный top
-                    .offset(y = (-1).dp) // Используем offset для смещения
+                    .padding(start = 85.dp)
+                    .offset(y = (-1).dp)
                     .zIndex(1f),
                 contentAlignment = Alignment.CenterStart
             ) {
                 Button(
-                    onClick = {  },
+                    onClick = {
+                        navController.navigate(PassportRoutes.Edit.route)
+                    },
                     modifier = Modifier
                         .width(148.dp)
                         .height(43.dp),

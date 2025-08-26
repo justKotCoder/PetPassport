@@ -1,18 +1,28 @@
 package com.example.petpassport
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +30,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,11 +48,13 @@ import com.example.core.ui.theme.LightBlue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PetEditScreen(
+fun PetPassportEdit(
     navController: NavController,
-    paddingValues: PaddingValues
+    modifier: Modifier = Modifier
 ) {
+
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     // Состояния для полей формы
     val petName = remember { mutableStateOf("") }
@@ -46,18 +64,68 @@ fun PetEditScreen(
     val specialMarks = remember { mutableStateOf("") }
     val chipNumber = remember { mutableStateOf("") }
     var selectedGender by remember { mutableStateOf("Мужской") }
+    var petImage by remember { mutableStateOf<ImageBitmap?>(null) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
+        // Кнопка "назад" вверху экрана
+        Text(
+            text = "назад",
+            modifier = Modifier
+                .clickable { navController.popBackStack() }
+                .padding(vertical = 16.dp),
+            fontWeight = FontWeight.Bold,
+            color = LightBlue
+        )
 
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Поля формы
+        // Контейнер для добавления фото
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(CircleShape)
+                    .border(2.dp, Color.LightGray, CircleShape)
+                    .background(Color.White)
+                    .clickable {
+                        // TODO: Реализовать выбор изображения
+                    }
+            ) {
+                if (petImage == null) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Добавить фото",
+                        tint = Color.LightGray,
+                        modifier = Modifier.size(40.dp)
+                    )
+                } else {
+                    Image(
+                        bitmap = petImage!!,
+                        contentDescription = "Фото питомца",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(120.dp)
+                            .clip(CircleShape)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "добавить фото",
+                color = Color.Gray,
+                fontSize = 14.sp
+            )
+        }        // Поля формы
         OutlinedTextField(
             value = petName.value,
             onValueChange = { petName.value = it },
@@ -84,6 +152,7 @@ fun PetEditScreen(
         )
 
         Spacer(modifier = Modifier.height(8.dp))
+
         CustomRadioGroup {
             CustomRadioButton(
                 isSelected = selectedGender == "Мужской",
@@ -98,6 +167,7 @@ fun PetEditScreen(
                 onClick = { selectedGender = "Женский" }
             )
         }
+
         Spacer(modifier = Modifier.height(8.dp))
 
         OutlinedTextField(
@@ -127,10 +197,12 @@ fun PetEditScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-
         // Кнопка сохранения
         Button(
-            onClick = { /* ... */ },
+            onClick = {
+                // Сохранение данных и возврат на предыдущий экран
+                navController.popBackStack()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
@@ -147,4 +219,10 @@ fun PetEditScreen(
             )
         }
     }
+}
+
+@Composable
+@Preview
+fun PetPassportEditPreview() {
+    PetPassportEdit(navController = NavController(LocalContext.current))
 }

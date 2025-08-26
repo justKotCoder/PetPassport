@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.petpassport.PetEditScreen
 import com.example.petpassportnew.navigation.BottomNavigationBar
 import com.example.petpassportnew.navigation.Screen
 import com.example.petpassportnew.presentation.splash.SplashScreen
