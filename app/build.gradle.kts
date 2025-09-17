@@ -4,16 +4,18 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+
+    alias(libs.plugins.google.services)
 }
 
 android {
     namespace = "com.example.petpassportnew"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.example.petpassportnew"
-        minSdk = 24
-        targetSdk = 35
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -26,35 +28,40 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // если включишь Crashlytics:
+            // firebaseCrashlytics { mappingFileUploadEnabled = true }
+        }
+        debug {
+            // firebaseCrashlytics { mappingFileUploadEnabled = false }
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+    kotlinOptions { jvmTarget = "17" }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 }
 
 dependencies {
-    // Lottie
-    implementation("com.airbnb.android:lottie-compose:6.4.0")
+    // ----- Firebase: импортируем BOM во ВСЕ нужные конфигурации -----
+    implementation(platform(libs.firebase.bom))
+    testImplementation(platform(libs.firebase.bom))
+    androidTestImplementation(platform(libs.firebase.bom))
 
-    // Compose Navigation
-    implementation(libs.androidx.navigation.compose)
+    // Затем — KTX артефакты БЕЗ версий
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.firestore)
+    // implementation(libs.firebase.crashlytics) // только если нужен Crashlytics SDK
 
-    // Core
+    // ----- Модули -----
     implementation(project(":core"))
     implementation(project(":core:mvi"))
+    implementation(project(":data"))
 
-    // Features
     implementation(project(":feature:auth"))
     implementation(project(":feature:services"))
     implementation(project(":feature:petpassport"))
@@ -63,7 +70,7 @@ dependencies {
     implementation(project(":feature:appointments"))
     implementation(project(":feature:settings"))
 
-    // Compose
+    // ----- Compose / AndroidX -----
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -71,18 +78,24 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
 
-    // Activity & Lifecycle
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0") // Можно тоже вынести в libs
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation.compose)
 
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
 
-    // Debug tools
+    // Прочее
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Coroutines (если нужны)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.play.services)
 }

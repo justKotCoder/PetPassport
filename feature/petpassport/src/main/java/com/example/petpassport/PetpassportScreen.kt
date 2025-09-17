@@ -30,7 +30,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.core.ui.theme.BlueFont
 import com.example.core.ui.theme.LightBlue
-import com.example.petpassport.feature.appointments.R
+import com.example.petpassport.feature.petpassport.R
 import com.example.petpassport.navigation.PassportRoutes
 
 @Composable

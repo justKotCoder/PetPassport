@@ -20,15 +20,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "PetPassportNew"
-include(":app")
-include(":core")
-include(":feature:auth")
-include(":feature:services")
-include(":feature:petpassport")
-include(":feature:chat")
-include(":feature:profile")
-include(":feature:Appointments")
-include(":feature:appointments")
-include(":core:mvi")
-include(":data")
-include(":feature:settings")
+
+include(":app", ":core", ":core:mvi", ":data")
+include(":feature:auth", ":feature:services", ":feature:petpassport",
+    ":feature:chat", ":feature:profile", ":feature:appointments", ":feature:settings")
+
+// (новые data-модули — при желании)
+include(":data:firebase-analytics", ":data:firebase-firestore", ":data:firebase-messaging")

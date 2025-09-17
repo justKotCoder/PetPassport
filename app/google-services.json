@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "350145200340",
+    "firebase_url": "https://pet-passport-74e91-default-rtdb.firebaseio.com",
+    "project_id": "pet-passport-74e91",
+    "storage_bucket": "pet-passport-74e91.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350145200340:android:cbe0a77f3b10593d2efb41",
+        "android_client_info": {
+          "package_name": "com.example.petpassportnew"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoq3AW7hpF9HQ8L3zCNojklPfU34YwQjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+// com/example/petpassport/navigation/PassportNavGraph.kt
 package com.example.petpassport.navigation
 
 import androidx.compose.ui.Modifier
@@ -5,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.petpassport.PetPassportEdit
 import com.example.petpassport.PetpassportScreen
+import com.example.petpassport.presentation.PetPassportEditScreen
 
 fun NavGraphBuilder.passportNavGraph(
     navController: NavController,
@@ -23,9 +24,8 @@ fun NavGraphBuilder.passportNavGraph(
             )
         }
         composable(PassportRoutes.Edit.route) {
-            PetPassportEdit(
-                navController = navController,
-                modifier = modifier
+            PetPassportEditScreen(
+                navController = navController
             )
         }
     }

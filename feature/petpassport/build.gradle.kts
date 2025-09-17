@@ -7,63 +7,54 @@ plugins {
 }
 
 android {
-    namespace = "com.example.petpassport.feature.appointments" // уникальный для фичи
-    compileSdk = 35
+    namespace = "com.example.petpassport.feature.petpassport"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    buildFeatures {
-        compose = true
-    }
+    buildFeatures { compose = true }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+    kotlinOptions { jvmTarget = "17" }
 }
 
 dependencies {
-    // Compose + Android
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
+    implementation(project(":core"))
+    implementation(project(":core:mvi"))
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
+// Если тут же понадобится FCM:
+// implementation(libs.firebase.messaging)
+
+    implementation(libs.kotlinx.coroutines.play.services) // для Tasks.await()
+
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.navigation.compose)
 
-    // DI — Hilt
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
-    implementation(project(":core"))
     ksp(libs.hilt.compiler)
 
-
-    // Unit & UI Tests
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
